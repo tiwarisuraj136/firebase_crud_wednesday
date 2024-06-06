@@ -17,9 +17,7 @@ class HomeController extends GetxController {
   }
 
   Stream<List<HrmModel>> todoStream() {
-    return firebaseFirestore
-        .collection('todos')
-        .snapshots()
+    return firebaseFirestore.collection('todos').snapshots()
         .map((QuerySnapshot query) {
       List<HrmModel> todos = [];
 
@@ -32,6 +30,20 @@ class HomeController extends GetxController {
       print('todos line 31');
       return todos;
     });
+  }
+
+  Future<void> updateStatus(bool isDone, String documentId) async {
+    await firebaseFirestore
+        .collection('todos')
+        .doc(documentId)
+        .update({'isDone': isDone});
+  }
+
+  Future<void> deleteHrmData(String documentId) async {
+    await firebaseFirestore
+        .collection('todos')
+        .doc(documentId)
+        .delete();
   }
 
 

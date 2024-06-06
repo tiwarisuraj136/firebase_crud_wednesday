@@ -28,14 +28,30 @@ class FormAddPage extends GetView<FormAddController>{
             ElevatedButton(
               onPressed: () async {
                 if (controller.contentController.text.isNotEmpty) {
+                  print('hello i am here line 31');
                   HrmModel newHrmData = HrmModel(
+                      id: '',
+                      content: controller.contentController.text,
+                      createdOn: Timestamp.now(),
+                      isDone: false);
+                  await controller.addData(newHrmData);
+                /*  HrmModel newHrmData = HrmModel(
+                      id: '',
+                      content: controller.contentController.text,
+                      createdOn: Timestamp.now(),
+                      isDone: false);
+                  await controller.addData(newHrmData);*/
+                  Get.snackbar('successful', 'add successful form');
+
+                 /* HrmModel newHrmData = HrmModel(
                     id: '', // Firestore will generate this
                     content: controller.contentController.text,
                     createdOn: Timestamp.now(),
                     isDone: false,
-                  );
+                  );*/
 
-                   await controller.addData(newHrmData);
+                   // await controller.addData(newHrmData);
+
                   Get.back(); // Close the add todo page
                 } else {
                   Get.snackbar(
